@@ -10,10 +10,14 @@ class FiniteAutoma {
     this.states.push(state);
   }
   addInitial(initial) {
-    this.initial = initial;
+    if (this.states.includes(initial)) {
+      this.initial = initial;
+    }
   }
   addFinal(final) {
-    this.final = final;
+    if (this.states.includes(final)) {
+      this.final = final;
+    }
   }
   addLetter(letter) {
     this.alphabet.push(letter);
