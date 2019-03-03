@@ -22,6 +22,19 @@ class FiniteAutoma {
   addLetter(letter) {
     this.alphabet.push(letter);
   }
+  lambdaLock(state) {
+    var arr = this.transitions['lambda'].map(elem => {
+      return elem.initial === state;
+    });
+
+    if (arr.length === 0) {
+      return state;
+    } else {
+      arr.forEach(elem => {
+        return elem.initial + this.lambdaLock(elem.final);
+      });
+    }
+  }
 }
 
 let M = new FiniteAutoma();
