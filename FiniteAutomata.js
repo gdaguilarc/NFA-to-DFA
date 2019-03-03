@@ -1,9 +1,9 @@
 class FiniteAutoma {
-  constructor(states, alphabet, initial, final, transitions) {
-    this.states = states;
-    this.alphabet = alphabet;
-    this.initial = initial;
-    this.final = final;
-    this.transitions = transitions;
+  constructor() {
+    this.states = [];
+    this.alphabet = [];
+    this.initial = null;
+    this.final = [];
+    this.transitions = [];
   }
 }
