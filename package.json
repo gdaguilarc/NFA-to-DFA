@@ -1,0 +1,22 @@
+{
+  "name": "afn-to-afd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gdaguilarc/AFN-to-AFD.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gdaguilarc/AFN-to-AFD/issues"
+  },
+  "homepage": "https://github.com/gdaguilarc/AFN-to-AFD#readme",
+  "dependencies": {
+    "p5": "^0.7.3"
+  }
+}
