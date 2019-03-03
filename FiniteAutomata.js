@@ -26,7 +26,7 @@ class FiniteAutoma {
       this.alphabet.push(letter);
     }
   }
-  addTransition(initial, final, trigger = 'lambda') {
+  addTransition(initial, final, trigger = 'thislambdaLock') {
     let obj = {
       initial: initial,
       final: final
@@ -46,21 +46,22 @@ class FiniteAutoma {
       return JSON.stringify(obj) === JSON.stringify(elem);
     });
   }
-  lambdaLock(state, result) {
-    let arr = this.transitions['lambda'].filter(elem => {
+
+  lambdaLock(state) {
+    let arr = this.transitions['thislambdaLock'].filter(elem => {
       return elem.initial === state;
     });
 
     if (arr.length === 0) {
       return state;
     } else {
-      return (
-        state +
-        arr.forEach(elem => {
-          return this.lambdaLock(elem.final);
-        })
-      );
+      arr.forEach(elem => {
+        state += ',';
+        return (state += this.lambdaLock(elem.final));
+      });
     }
+
+    return state.split(',');
   }
 }
 
@@ -72,10 +73,12 @@ class FiniteAutoma {
  */
 
 let M = new FiniteAutoma();
+var f = [];
 M.addState('a');
-M.addState('b');
+M.addState('q0');
 M.addState('q0');
 M.addState('q1');
+M.addTransition('a', 'b');
 M.addTransition('a', 'b');
 M.addTransition('b', 'q0');
 M.addTransition('a', 'a', 'w');
@@ -84,9 +87,9 @@ M.addTransition('a', 'a', 'w');
 M.addTransition('q0', 'a', 'a');
 M.addInitial('q2');
 M.addInitial('a');
-console.log(M);
-console.log(M.transitions['lambda']);
-console.log(M.transitions['w']);
-console.log('dadasdas');
+//console.log(M);
+//console.log(M.transitions['thislambdaLock']);
+//console.log(M.transitions['w']);
+//console.log('dadasdas');
 let popo = [];
-console.log(M.lambdaLock('a', popo));
+console.log(M.lambdaLock('a'));
