@@ -6,16 +6,21 @@ class FiniteAutoma {
     this.final = [];
     this.transitions = [];
   }
+  addState(state) {
+    this.states.push(state);
+  }
+  addInitial(initial) {
+    this.initial = initial;
+  }
+  addFinal(final) {
+    this.final = final;
+  }
+  addLetter(letter) {
+    this.alphabet.push(letter);
+  }
 }
-function addState(state) {
-  this.states.push(state);
-}
-function addInitial(initial) {
-  this.initial = initial;
-}
-function addFinal(final) {
-  this.final = final;
-}
-function addLetter(letter) {
-  this.alphabet.push(letter);
-}
+
+let M = new FiniteAutoma();
+M.addState('a');
+
+console.log(M);
