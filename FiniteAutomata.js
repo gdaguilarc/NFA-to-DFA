@@ -26,7 +26,7 @@ class FiniteAutoma {
       this.alphabet.push(letter);
     }
   }
-  addTransition(initial, final, trigger = 'lambda') {
+  addTransition(initial, final, trigger = 'thislambdaLock') {
     let obj = {
       initial: initial,
       final: final
@@ -58,9 +58,9 @@ class FiniteAutoma {
         state += ',';
         return (state += this.lambdaLock(elem.final));
       });
-
-      return state.split();
     }
+
+    return state.split(',');
   }
 }
 
@@ -72,8 +72,9 @@ class FiniteAutoma {
  */
 
 let M = new FiniteAutoma();
+var f = [];
 M.addState('a');
-M.addState('b');
+M.addState('q0');
 M.addState('q0');
 M.addState('q1');
 M.addTransition('a', 'b');
@@ -85,9 +86,9 @@ M.addTransition('a', 'a', 'w');
 M.addTransition('q0', 'a', 'a');
 M.addInitial('q2');
 M.addInitial('a');
-console.log(M);
-console.log(M.transitions['lambda']);
-console.log(M.transitions['w']);
-console.log('dadasdas');
+//console.log(M);
+//console.log(M.transitions['thislambdaLock']);
+//console.log(M.transitions['w']);
+//console.log('dadasdas');
 let popo = [];
 console.log(M.lambdaLock('a'));
