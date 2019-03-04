@@ -26,7 +26,7 @@ class FiniteAutoma {
       this.alphabet.push(letter);
     }
   }
-  addTransition(initial, final, trigger = 'thislambdaLock') {
+  addTransition(initial, final, trigger = 'lambda') {
     let obj = {
       initial: initial,
       final: final
