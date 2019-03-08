@@ -14,7 +14,10 @@ function transformation(automata) {
   Q.addInitial(automata.initial);
 
   newState = closureOfClosure(automata);
+  //para cada estado con cada letra del alfabeto crear nueeva transition (initial,letter,final)
+  states.forEach(element => {});
 }
+
 function closureOfClosure(automata, state, letter) {
   var arr = automata.lambdaLock(state);
   arr.forEach(element => {
@@ -22,11 +25,5 @@ function closureOfClosure(automata, state, letter) {
     var transitions = automata.transitions[letter].filter(elem => {
       return elem.initial === state;
     });
-
-    return transitions
-      .forEach(elem => {
-        return automata.lambdaLock(elem);
-      })
-      .join(',');
   });
 }
