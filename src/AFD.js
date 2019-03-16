@@ -1,10 +1,6 @@
-Automata = require('./Automata');
+const Automata = require('./Automata');
 
 class AFD extends Automata {
-  constructor() {
-    super();
-  }
-
   // Adds a letter to the alphabet
   addLetter(letter) {
     if (!this.alphabet.includes(letter) && letter !== 'lambda') {
@@ -14,9 +10,9 @@ class AFD extends Automata {
 
   // Adds a transition if is not repeated
   addTransition(initial, final, letter) {
-    let obj = {
-      letter: letter,
-      final: final
+    const obj = {
+      letter,
+      final
     };
 
     // initialize the array of the state[key] if dosen't exists

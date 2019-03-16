@@ -1,4 +1,4 @@
-const AFD = require('../AFD');
+const AFD = require('../src/AFD');
 
 test('No same letter transitions', () => {
   const automata = new AFD();
@@ -8,5 +8,5 @@ test('No same letter transitions', () => {
   automata.addInitial('q0');
   automata.addTransition('q0', 'q1', 'a');
   automata.addTransition('q0', 'q2', 'a');
-  expect(automata.transitions['q0'].length).toBe(1);
+  expect(automata.transitions.q0).toHaveLength(1);
 });

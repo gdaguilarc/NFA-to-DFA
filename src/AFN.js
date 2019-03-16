@@ -1,11 +1,12 @@
-Automata = require('./Automata');
+/* eslint-disable no-param-reassign */
+const Automata = require('./Automata');
 
 class AFN extends Automata {
   // Adds a transition if is not repeated
   addTransition(initial, final, letter = 'lambda') {
-    let obj = {
-      letter: letter,
-      final: final
+    const obj = {
+      letter,
+      final
     };
 
     // initialize the array of the state[key] if dosen't exists
@@ -25,18 +26,20 @@ class AFN extends Automata {
       return state;
     }
 
-    let arr = this.transitions[state].filter(elem => {
+    const arr = this.transitions[state].filter(elem => {
       return elem.letter === 'lambda';
     });
 
     if (arr.length === 0) {
       return state;
-    } else {
-      arr.forEach(elem => {
-        state += ',';
-        return (state += this.lambdaLock(elem.final));
-      });
     }
+    // we disable de eslint rules because
+    arr.forEach(elem => {
+      // eslint-disable-next-line no-param-reassign
+      state += ',';
+      // eslint-disable-next-line no-return-assign
+      return (state += this.lambdaLock(elem.final));
+    });
 
     // Returns only unique elements
     return state.split(',').filter((value, index, self) => {

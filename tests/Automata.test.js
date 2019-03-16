@@ -1,4 +1,4 @@
-const Automata = require('../Automata');
+const Automata = require('../src/Automata');
 
 test('Create a Finite Automata', () => {
   expect(JSON.stringify(new Automata())).toBe(
