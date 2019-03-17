@@ -15,9 +15,16 @@ function tableOfClosures(automata) {
   const tableClosures = [];
   automata.states.forEach(state => {
     const closure = automata.lambdaLock(state);
-    console.log('closure', closure);
+
     tableClosures[state] = [];
-    tableClosures[state] = { closure };
+
+    if (Array.isArray(closure)) {
+      tableClosures[state] = { closure };
+    } else {
+      const temp = [];
+      temp.push(closure);
+      tableClosures[state] = temp;
+    }
   });
 
   return tableClosures;
