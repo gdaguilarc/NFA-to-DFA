@@ -41,8 +41,11 @@ class AFN extends Automata {
       return (state += this.lambdaLock(elem.final));
     });
 
+    const result = [];
+    state.split(',').forEach(elem => result.push(elem));
+    console.log('state', state);
     // Returns only unique elements
-    return state.split(',').filter((value, index, self) => {
+    return result.filter((value, index, self) => {
       return self.indexOf(value) === index;
     });
   }
