@@ -104,7 +104,7 @@ function Transformation(automata) {
           return a > b;
         });
       } else {
-        temp = '0';
+        temp = ['0'];
       }
 
       if (!tableT[st]) {
