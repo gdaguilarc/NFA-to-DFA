@@ -38,6 +38,9 @@ class Automata {
     if (!this.alphabet.includes(letter)) {
       this.alphabet.push(letter);
     }
+    this.alphabet.sort((a, b) => {
+      return a > b;
+    });
   }
 
   // Transforms a object into a String and compares it
