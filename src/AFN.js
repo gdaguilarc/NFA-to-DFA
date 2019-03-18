@@ -43,7 +43,6 @@ class AFN extends Automata {
 
     const result = [];
     state.split(',').forEach(elem => result.push(elem));
-    console.log('state', state);
     // Returns only unique elements
     return result.filter((value, index, self) => {
       return self.indexOf(value) === index;
