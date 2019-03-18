@@ -6,4 +6,4 @@ test('Add lambda transitions', () => {
   expect(automata.transitions.q0).toEqual([{ letter: 'lambda', final: 'q3' }]);
 });
 
-// TODO: Lambda closure
+// TODO: Lambda closure test

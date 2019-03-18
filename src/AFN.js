@@ -1,3 +1,7 @@
+// TODO: Update all the comments
+// TODO: Update Class Authors
+// TODO: Testing for this class (jest)
+
 /* eslint-disable no-param-reassign */
 const Automata = require('./Automata');
 
