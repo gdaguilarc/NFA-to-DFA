@@ -3,6 +3,10 @@
  * finite automata.
  * AFD and AFN extends this class!!!
  */
+
+// TODO: Class Authors
+// TODO: Update all the comments
+
 class Automata {
   constructor() {
     this.states = [];

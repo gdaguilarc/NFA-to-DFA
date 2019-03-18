@@ -8,6 +8,10 @@
  * @since       1.0.0
  */
 
+// TODO: Update all the comments
+// TODO: Testing for this class (jest)
+// TODO: Simplificate the code
+
 const AFD = require('./AFD');
 const AFN = require('./AFN');
 
@@ -119,11 +123,13 @@ function Transformation(automata) {
     });
   });
 
+  // TODO: This needs to be a separate function
   for (let i = 0; i < result.states.length; i += 1) {
     result.alphabet.forEach(letter => {
       const letterIndex = result.alphabet.indexOf(letter);
       let y = [];
       result.states[i].split(',').forEach(elem => {
+        // TODO: Change error state from ' ' to 'error'
         if (tableT[elem] && tableT[elem][letterIndex].join(',') !== '0') {
           y.push(tableT[elem][letterIndex].join(','));
         }
@@ -147,7 +153,9 @@ function Transformation(automata) {
   return result;
 }
 
-let a = new AFN();
+// TODO: Delete Class testing
+
+const a = new AFN();
 a.addLetter('c');
 a.addLetter('b');
 a.addLetter('a');
