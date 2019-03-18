@@ -118,7 +118,7 @@ function Transformation(automata) {
   return tableT;
 }
 
-let a = new AFN();
+const a = new AFN();
 a.addLetter('a');
 a.addLetter('b');
 a.addLetter('c');
@@ -134,6 +134,39 @@ a.addTransition('q1', 'q1', 'b');
 a.addTransition('q2', 'q2', 'c');
 a.addTransition('q2', 'q1');
 
+/* / segunda prueba/ */
+const b = new AFN();
+b.addLetter('a');
+b.addLetter('b');
+b.addState('q0');
+b.addState('q1');
+b.addState('q2');
+b.addInitial('q0');
+b.addFinal('q2');
+b.addTransition('q0', 'q1', 'a');
+b.addTransition('q0', 'q2', 'b');
+b.addTransition('q1', 'q1', 'a');
+b.addTransition('q1', 'q0', 'b');
+b.addTransition('q1', 'q0', 'a');
+b.addTransition('q2', 'q2', 'b');
+b.addTransition('q2', 'q1', 'b');
+
+/* / tercera prueba / */
+const c = new AFN();
+c.addLetter('a');
+c.addLetter('b');
+c.addState('q0');
+c.addState('q1');
+c.addState('q2');
+c.addInitial('q0');
+c.addFinal('q2');
+c.addTransition('q0', 'q0', 'a');
+c.addTransition('q0', 'q1', 'a');
+c.addTransition('q1', 'q1', 'b');
+c.addTransition('q1', 'q2', 'b');
+
 console.log('Tabla T \n', Transformation(a));
+console.log('Tabla T \n', Transformation(b));
+console.log('Tabla T \n', Transformation(c));
 
 module.exports = Transformation;
