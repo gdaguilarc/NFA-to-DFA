@@ -33,7 +33,7 @@ class Automata {
   // Checks if the state exists and is not repeated in final
   addFinal(final) {
     if (this.states.includes(final) && !this.final.includes(final)) {
-      this.final = final;
+      this.final.push(final);
     }
   }
 
