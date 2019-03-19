@@ -82,6 +82,18 @@ function tableTCreation(closure, letter, automata, tableClosures) {
   return temp;
 }
 
+function getFinals(oldAutomata, newAutomata) {
+  const result = [];
+  newAutomata.states.forEach(state => {
+    oldAutomata.final.forEach(elem => {
+      if (state.split(',').includes(elem)) {
+        result.push(state);
+      }
+    });
+  });
+  return result.sort((a, b) => a.split(',').length > b.split(',').length);
+}
+
 function Transformation(automata) {
   /**
    * TABLE OF LAMBDA LOCKS aka CLOSURES
@@ -154,6 +166,12 @@ function Transformation(automata) {
       }
     });
   }
+
+  const finals = getFinals(automata, result);
+  console.log(finals);
+  finals.forEach(elem => {
+    result.addFinal(elem);
+  });
 
   return result;
 }
@@ -240,6 +258,7 @@ e.addTransition('q1', 'q2', 'a');
 e.addTransition('q2', 'q0', 'b');
 e.addTransition('q2', 'q1', 'a');
 
-console.log('RESULT \n', Transformation(e).transitions);
+// console.log('RESULT \n', Transformation(e).transitions);
+console.log('RESULT \n', Transformation(a));
 
-module.exports = Transformation;
+module.exports = Transformation(a);
