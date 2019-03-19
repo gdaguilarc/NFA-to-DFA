@@ -168,7 +168,6 @@ function Transformation(automata) {
   }
 
   const finals = getFinals(automata, result);
-  console.log(finals);
   finals.forEach(elem => {
     result.addFinal(elem);
   });
@@ -259,6 +258,6 @@ e.addTransition('q2', 'q0', 'b');
 e.addTransition('q2', 'q1', 'a');
 
 // console.log('RESULT \n', Transformation(e).transitions);
-console.log('RESULT \n', Transformation(a));
+// console.log('RESULT \n', Transformation(a));
 
 module.exports = Transformation(a);
