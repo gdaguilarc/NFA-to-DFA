@@ -15,6 +15,28 @@
 const AFD = require('./AFD');
 const AFN = require('./AFN');
 
+function getTransitions(array, letter, automata) {
+  const letterArray = [];
+  const result = [];
+  array.forEach(state => {
+    if (automata.transitions[state]) {
+      letterArray.push(
+        automata.transitions[state].filter(elem => {
+          return elem.letter === letter;
+        })
+      );
+    }
+  });
+
+  letterArray.forEach(elem => {
+    elem.forEach(tr => {
+      result.push(tr.final);
+    });
+  });
+
+  return result.join(',');
+}
+
 function tableOfClosures(automata) {
   const tableClosures = [];
   automata.states.forEach(state => {
@@ -58,26 +80,6 @@ function tableTCreation(closure, letter, automata, tableClosures) {
   }
 
   return temp;
-}
-
-function getTransitions(array, letter, automata) {
-  const letterArray = [];
-  const result = [];
-  array.forEach(state => {
-    letterArray.push(
-      automata.transitions[state].filter(elem => {
-        return elem.letter === letter;
-      })
-    );
-  });
-
-  letterArray.forEach(elem => {
-    elem.forEach(tr => {
-      result.push(tr.final);
-    });
-  });
-
-  return result.join(',');
 }
 
 function Transformation(automata) {
@@ -136,11 +138,13 @@ function Transformation(automata) {
         }
       });
 
+      y = y.join(',').split(',');
+
       y = y.filter((value, index, self) => {
         return self.indexOf(value) === index;
       });
 
-      y = y.join(',');
+      y = y.sort((a, b) => a > b).join(',');
 
       if (result.states.includes(y)) {
         result.addTransition(result.states[i], y, letter);
