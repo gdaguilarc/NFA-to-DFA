@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /** ESLINT DEVELOPMENT DISABLED RULES!!! DELETE AT THE  END OF THE DEVELOPING */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
@@ -21,7 +22,7 @@ const AFD = require('./AFD');
  *
  * @param {Integer} numberStates The size of the hashmap
  * @returns {Object} Hashmap
- * @description Initialize a hashmap for pairs of values i, j where i < j
+ * @description Initialize a hashmap for pairs of values i, j where i < j with the value 1
  */
 function initializePairs(numberStates) {
   const pairs = [];
@@ -29,6 +30,24 @@ function initializePairs(numberStates) {
     for (let j = 1; j < numberStates; j += 1) {
       if (i < j) {
         pairs[`${i},${j}`] = 0;
+      }
+    }
+  }
+  return pairs;
+}
+
+/**
+ *
+ * @param {Integer} numberStates The size of the hashmap
+ * @returns {Object} Hashmap
+ * @description Initialize a hashmap for pairs of values i, j where i < j with an empty array
+ */
+function initializePairsEmpty(numberStates) {
+  const pairs = [];
+  for (let i = 0; i < numberStates; i += 1) {
+    for (let j = 1; j < numberStates; j += 1) {
+      if (i < j) {
+        pairs[`${i},${j}`] = [];
       }
     }
   }
@@ -95,8 +114,19 @@ function existLetterOnes(automata, statesD, indexA, indexB) {
 
 // TODO: Function DIST
 // function dist(i, j){}
-function dist(message) {
-  console.log(message);
+
+/**
+ *
+ * @param {Integer} i index
+ * @param {Integer} j index
+ * @param {Object} tableD Table that contains the results of the problem
+ * @param {Object} tableS Table that contains the results of the problem
+ */
+function dist(i, j, tableD, tableS) {
+  tableD[`${i},${j}`] = 1;
+  tableS[`${i},${j}`].forEach(pair => {
+    dist(parseInt(pair.split(',')[0], 10), parseInt(pair.split(',')[1], 10), tableD, tableS);
+  });
 }
 
 /**
@@ -107,10 +137,9 @@ function dist(message) {
  */
 function reduceAFN(automata) {
   let statesD = initializePairs(automata.states.length);
-  let statesS = initializePairs(automata.states.length);
+  const statesS = initializePairsEmpty(automata.states.length);
 
   statesD = checkFinalPairs(statesD, automata.states, automata.final);
-  console.log(statesD);
 
   let m = 0;
   let n = 0;
@@ -127,22 +156,11 @@ function reduceAFN(automata) {
           parseInt(pair.split(',')[1], 10)
         )
       ) {
-        // TODO: Implement dist
-        dist(pair);
+        dist(parseInt(pair.split(',')[0], 10), parseInt(pair.split(',')[1], 10), statesD, statesS);
       } else {
         for (let i = 0; i < automata.alphabet.length; i += 1) {
-          const m = getNM(
-            parseInt(pair.split(',')[0], 10),
-            automata,
-            automata,
-            automata.alphabet[i]
-          );
-          const n = getNM(
-            parseInt(pair.split(',')[1], 10),
-            automata,
-            automata,
-            automata.alphabet[i]
-          );
+          m = getNM(parseInt(pair.split(',')[0], 10), automata, automata.alphabet[i]);
+          n = getNM(parseInt(pair.split(',')[1], 10), automata, automata.alphabet[i]);
 
           if (m < n && pair !== `${m},${n}`) {
             statesS[`${m},${n}`].push(pair);
@@ -153,6 +171,8 @@ function reduceAFN(automata) {
       }
     }
   }
+  console.log('StatesD', statesD);
+  console.log('StatesS', statesS);
 }
 
 /**
@@ -204,8 +224,6 @@ automata.addTransition('q6', 'q6', 'b');
 
 automata.addTransition('q7', 'q7', 'a');
 automata.addTransition('q7', 'q7', 'b');
-
-console.log(automata.transitions);
 
 // Main function testing
 reduceAFN(automata);
