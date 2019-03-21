@@ -1,24 +1,30 @@
+/** ESLINT DEVELOPMENT DISABLED RULES!!! DELETE AT THE  END OF THE DEVELOPING */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
+
 /**
- * This script is in charge of performing the minimization
- * of the AFD resulting from the transformation of the AFN
  *
  * @author      David Aguilar
  * @author      Andrea Becerra
  * @author      Saul Neri
  * @version     1.0.0
  * @since       1.0.0
+ *
+ * @description This script is in charge of performing the minimization of the AFD resulting from the transformation of the AFN
  */
 
 // TODO: Reduce method
+
 const AFD = require('./AFD');
 
-const test = require('./transformation.js');
-
+/**
+ *
+ * @param {Integer} numberStates The size of the hashmap
+ * @returns {Object} Hashmap
+ * @description Initialize a hashmap for pairs of values i, j where i < j
+ */
 function initializePairs(numberStates) {
   const pairs = [];
-
   for (let i = 0; i < numberStates; i += 1) {
     for (let j = 1; j < numberStates; j += 1) {
       if (i < j) {
@@ -29,7 +35,15 @@ function initializePairs(numberStates) {
   return pairs;
 }
 
-function checkPairs(pairs, states, final) {
+/**
+ *
+ * @param {Object} pairs Array of pairs for validation
+ * @param {String []} states Array of states of an automata
+ * @param {String []} final Array of final states
+ * @returns {Object} New array of pairs
+ * @description Checks what pair of states contain a final and makes them equal to 1
+ */
+function checkFinalPairs(pairs, states, final) {
   const newPairs = pairs;
   for (const i in pairs) {
     const indexes = i.split(',');
@@ -47,47 +61,103 @@ function checkPairs(pairs, states, final) {
   }
   return newPairs;
 }
-// function dist(i, j){
 
-// }
-
-function checkTransition(indexa, indexb, letter, statesD, automata) {
-  const stateA = automata.states[indexa];
-  const stateB = automata.states[indexb];
-
-  const m = automata.states.indexOf(
-    automata.transitions[stateA].filter(elem => elem.letter === letter)[0].final
+/**
+ *
+ * @param {Integer} index
+ * @param {Object} automata
+ * @param {String} letter
+ */
+function getNM(index, automata, letter) {
+  return automata.states.indexOf(
+    automata.transitions[automata.states[index]].filter(elem => elem.letter === letter)[0].final
   );
-  const n = automata.states.indexOf(
-    automata.transitions[stateB].filter(elem => elem.letter === letter)[0].final
-  );
-
-  return statesD[`${m},${n}`] === 1 || statesD[`${n},${m}`] === 1;
 }
 
+/**
+ *
+ * @param {Object} automata
+ * @param {Object} statesD
+ * @param {Integer} indexA
+ * @param {Integer} indexB
+ *
+ * @description
+ * Check if exist a letter that: d(qi, a) = qm, d(qj, a) = qn and D[m, n] = 1 or D[n, m] = 1
+ */
+function existLetterOnes(automata, statesD, indexA, indexB) {
+  for (let i = 0; i < automata.alphabet.length; i += 1) {
+    const m = getNM(indexA, automata, automata.alphabet[i]);
+    const n = getNM(indexB, automata, automata.alphabet[i]);
+    if (statesD[`${m},${n}`] === 1 || statesD[`${n},${m}`] === 1) return true;
+  }
+  return false;
+}
+
+// TODO: Function DIST
+// function dist(i, j){}
+function dist(message) {
+  console.log(message);
+}
+
+/**
+ *
+ * @param {Object} automata DFA (Deterministic Finite Automata)
+ * @returns {Object}
+ * @description Reduces a Deterministic Finite Automata
+ */
 function reduceAFN(automata) {
   let statesD = initializePairs(automata.states.length);
   let statesS = initializePairs(automata.states.length);
-  // TODO: checkpairs od D  --> for -> if  --> dist / else
 
-  statesD = checkPairs(statesD, automata.states, automata.final);
+  statesD = checkFinalPairs(statesD, automata.states, automata.final);
+  console.log(statesD);
 
-  automata.alphabet.forEach(letter => {
-    for (const i in statesD) {
-      if (statesD[i] === 0) {
-        const indexa = i.split(',')[0];
-        const indexb = i.split(',')[1];
+  let m = 0;
+  let n = 0;
 
-        if (
-          checkTransition(parseInt(indexa, 10), parseInt(indexb, 10), letter, statesD, automata)
-        ) {
-          // DIST
-          console.log('DIST');
+  // Iterates over the hasmap of pairs
+  for (const pair in statesD) {
+    // Only if the pair is equal to 0
+    if (statesD[pair] === 0) {
+      if (
+        existLetterOnes(
+          automata,
+          statesD,
+          parseInt(pair.split(',')[0], 10),
+          parseInt(pair.split(',')[1], 10)
+        )
+      ) {
+        // TODO: Implement dist
+        dist(pair);
+      } else {
+        for (let i = 0; i < automata.alphabet.length; i += 1) {
+          const m = getNM(
+            parseInt(pair.split(',')[0], 10),
+            automata,
+            automata,
+            automata.alphabet[i]
+          );
+          const n = getNM(
+            parseInt(pair.split(',')[1], 10),
+            automata,
+            automata,
+            automata.alphabet[i]
+          );
+
+          if (m < n && pair !== `${m},${n}`) {
+            statesS[`${m},${n}`].push(pair);
+          } else if (m > n && pair !== `${n},${m}`) {
+            statesS[`${n},${m}`].push(pair);
+          }
         }
       }
     }
-  });
+  }
 }
+
+/**
+ * THIS SECTION IS ONLY FOR TESTING!!! SHOULD BE REMOVED AT THE END OF THE DEVELOPMENT.
+ */
 
 const automata = new AFD();
 automata.addState('q0');
@@ -135,7 +205,14 @@ automata.addTransition('q6', 'q6', 'b');
 automata.addTransition('q7', 'q7', 'a');
 automata.addTransition('q7', 'q7', 'b');
 
-console.log(automata);
+console.log(automata.transitions);
+
+// Main function testing
 reduceAFN(automata);
 
+/**
+ *  END OF THE TESTING SECTION
+ */
+
+// export the main function of the file
 module.exports = reduceAFN;
