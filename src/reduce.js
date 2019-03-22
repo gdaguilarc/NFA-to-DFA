@@ -129,6 +129,23 @@ function dist(i, j, tableD, tableS) {
   });
 }
 
+function getEquivalents(tableS) {
+  const result = [];
+  for (const pair in tableS) {
+    if (tableS[pair].length > 0) {
+      result.push([pair]);
+      tableS[pair].forEach(arr => {
+        result.push(arr);
+      });
+    }
+  }
+  return result;
+}
+
+function reconstruction(tableS) {
+  const equivalents = getEquivalents(tableS);
+}
+
 /**
  *
  * @param {Object} automata DFA (Deterministic Finite Automata)
