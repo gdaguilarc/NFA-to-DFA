@@ -1,7 +1,13 @@
 /**
- * Basic class used to establish the basic structure of a
+ *
+ * @author      David Aguilar <gd.aguilarc@gmail.com>
+ * @author      Andrea Becerra
+ * @author      Saul Neri
+ * @version     1.0.0
+ * @since       1.0.0
+ *
+ *  @description Basic class used to establish the basic structure of a
  * finite automata.
- * AFD and AFN extends this class!!!
  */
 
 // TODO: Class Authors
@@ -23,7 +29,11 @@ class Automata {
     }
   }
 
-  // Checks if the state exists and if initial is not already picked
+  /**
+   *
+   * @param {String} state A state of the FA
+   * @description Checks if the state exist in order to assign it as the initial state
+   */
   addInitial(state) {
     if (this.states.includes(state) && this.initial === null) {
       this.initial = state;
@@ -35,6 +45,37 @@ class Automata {
     if (this.states.includes(final) && !this.final.includes(final)) {
       this.final.push(final);
     }
+  }
+
+  /**
+   *
+   * @param {String} state A final state
+   * @description Deletes the final state from the array of finals
+   */
+  removeFinal(state) {
+    this.final = this.final.filter(final => final !== state);
+  }
+
+  /**
+   *
+   * @param {String} state The state father of the transitions
+   * @description Deletes from the hashmap the transitions of given state
+   */
+  removeTransitions(state) {
+    const newTransitions = [];
+    Object.keys(this.transitions).forEach(key => {
+      if (key !== state) {
+        newTransitions[key] = this.transitions[key];
+      }
+    });
+    this.transitions = newTransitions;
+  }
+
+  // deleteState(state) {
+  //   if (this.states.includes(state) && this.final.includes(state)) {
+  //     this.removeFinal(state);
+  //   } else if (this.states.includes(state)) {
+  //   }
   }
 
   // Adds a letter to the alphabet

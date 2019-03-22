@@ -129,22 +129,13 @@ function dist(i, j, tableD, tableS) {
   });
 }
 
-function getEquivalents(tableS) {
-  const result = [];
-  for (const pair in tableS) {
-    if (tableS[pair].length > 0) {
-      result.push([pair]);
-      tableS[pair].forEach(arr => {
-        result.push(arr);
-      });
-    }
-  }
-  return result;
-}
+// TODO: minimizeConstruction func
+// function minimizeConstruction() {}
 
-function reconstruction(tableS) {
-  const equivalents = getEquivalents(tableS);
-}
+// // TODO: deleteState func
+// function deleteState(deleteIndex, sustituteIndex, automata){
+//   let deletedState =
+// }
 
 /**
  *
@@ -189,12 +180,9 @@ function reduceAFN(automata) {
     }
   }
   console.log('StatesD', statesD);
-  console.log('StatesS', statesS);
 }
 
-/**
- * THIS SECTION IS ONLY FOR TESTING!!! SHOULD BE REMOVED AT THE END OF THE DEVELOPMENT.
- */
+// THIS SECTION IS ONLY FOR TESTING!!! SHOULD BE REMOVED AT THE END OF THE DEVELOPMENT
 
 const automata = new AFD();
 automata.addState('q0');
@@ -245,9 +233,7 @@ automata.addTransition('q7', 'q7', 'b');
 // Main function testing
 reduceAFN(automata);
 
-/**
- *  END OF THE TESTING SECTION
- */
+// END OF THE TESTING SECTION
 
 // export the main function of the file
 module.exports = reduceAFN;

@@ -257,7 +257,7 @@ e.addTransition('q1', 'q2', 'a');
 e.addTransition('q2', 'q0', 'b');
 e.addTransition('q2', 'q1', 'a');
 
-// console.log('RESULT \n', Transformation(e).transitions);
+console.log('RESULT \n', Transformation(e).transitions);
 // console.log('RESULT \n', Transformation(a));
 
 module.exports = Transformation(a);

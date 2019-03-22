@@ -19,3 +19,27 @@ test('Add initial state', () => {
   automata.addInitial('q1');
   expect(automata.initial).toBe('q0');
 });
+
+test('Remove final', () => {
+  const automata = new Automata();
+  automata.addState('q0');
+  automata.addState('q1');
+  automata.addFinal('q0');
+  automata.addFinal('q1');
+  automata.removeFinal('q1');
+  expect(automata.final).toEqual(['q0']);
+});
+
+test('Remove transitions', () => {
+  const automata = new Automata();
+  automata.addState('q0');
+  automata.addState('q1');
+  automata.addState('q2');
+  automata.addState('q3');
+  const transitions = [];
+  transitions.q0 = { letter: 'a', final: 'q2' };
+  transitions.q1 = { letter: 'a', final: 'q3' };
+  automata.transitions = transitions;
+  automata.removeTransitions('q0');
+  expect(Object.keys(automata.transitions)).toHaveLength(1);
+});
