@@ -147,8 +147,6 @@ function minimizeConstruction(tableD, automata) {
       const min = elem.split(',')[0];
       const max = elem.split(',')[1];
 
-      // [[4,5,6]]
-      // [[4,5,4,6,4,6,5,4,6]]
       const temp = [];
       let newPair = true;
 
