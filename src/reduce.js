@@ -147,12 +147,14 @@ function minimizeConstruction(tableD, automata) {
       const min = elem.split(',')[0];
       const max = elem.split(',')[1];
 
+      // [[4,5,6]]
+      // [[4,5,4,6,4,6,5,4,6]]
       const temp = [];
       let newPair = true;
 
       for (let i = 0; i < equivalent.length; i += 1) {
         for (let j = 0; j < equivalent[i].length; j += 1) {
-          if (min === equivalent[i][j]) {
+          if (min === equivalent[i][j] && newPair) {
             equivalent[i].push(min);
             equivalent[i].push(max);
             newPair = false;
@@ -272,61 +274,62 @@ function reduceAFN(automata) {
       }
     }
   }
+  // console.log(statesD);
   return minimizeConstruction(statesD, automata);
 }
 
 // // THIS SECTION IS ONLY FOR TESTING!!! SHOULD BE REMOVED AT THE END OF THE DEVELOPMENT
 
-// let automata = new AFD();
-// automata.addState('q0');
-// automata.addState('q1');
-// automata.addState('q2');
-// automata.addState('q3');
-// automata.addState('q4');
-// automata.addState('q5');
-// automata.addState('q6');
-// automata.addState('q7');
+let automata = new AFD();
+automata.addState('q0');
+automata.addState('q1');
+automata.addState('q2');
+automata.addState('q3');
+automata.addState('q4');
+automata.addState('q5');
+automata.addState('q6');
+automata.addState('q7');
 
-// automata.addInitial('q0');
+automata.addInitial('q0');
 
-// automata.addFinal('q1');
-// automata.addFinal('q2');
-// automata.addFinal('q3');
-// automata.addFinal('q4');
-// automata.addFinal('q5');
-// automata.addFinal('q6');
+automata.addFinal('q1');
+automata.addFinal('q2');
+automata.addFinal('q3');
+automata.addFinal('q4');
+automata.addFinal('q5');
+automata.addFinal('q6');
 
-// automata.addLetter('a');
-// automata.addLetter('b');
+automata.addLetter('a');
+automata.addLetter('b');
 
-// automata.addTransition('q0', 'q1', 'a');
-// automata.addTransition('q0', 'q4', 'b');
+automata.addTransition('q0', 'q1', 'a');
+automata.addTransition('q0', 'q4', 'b');
 
-// automata.addTransition('q1', 'q2', 'a');
-// automata.addTransition('q1', 'q3', 'b');
+automata.addTransition('q1', 'q2', 'a');
+automata.addTransition('q1', 'q3', 'b');
 
-// automata.addTransition('q2', 'q7', 'a');
-// automata.addTransition('q2', 'q7', 'b');
+automata.addTransition('q2', 'q7', 'a');
+automata.addTransition('q2', 'q7', 'b');
 
-// automata.addTransition('q3', 'q7', 'a');
-// automata.addTransition('q3', 'q3', 'b');
+automata.addTransition('q3', 'q7', 'a');
+automata.addTransition('q3', 'q3', 'b');
 
-// automata.addTransition('q4', 'q5', 'a');
-// automata.addTransition('q4', 'q6', 'b');
+automata.addTransition('q4', 'q5', 'a');
+automata.addTransition('q4', 'q6', 'b');
 
-// automata.addTransition('q5', 'q7', 'a');
-// automata.addTransition('q5', 'q7', 'b');
+automata.addTransition('q5', 'q7', 'a');
+automata.addTransition('q5', 'q7', 'b');
 
-// automata.addTransition('q6', 'q7', 'a');
-// automata.addTransition('q6', 'q6', 'b');
+automata.addTransition('q6', 'q7', 'a');
+automata.addTransition('q6', 'q6', 'b');
 
-// automata.addTransition('q7', 'q7', 'a');
-// automata.addTransition('q7', 'q7', 'b');
+automata.addTransition('q7', 'q7', 'a');
+automata.addTransition('q7', 'q7', 'b');
 
-// // Main function testing
-// automata = reduceAFN(automata);
-// console.log(automata);
-// console.log(automata.transitions);
+// Main function testing
+automata = reduceAFN(automata);
+console.log(automata);
+console.log(automata.transitions);
 
 // -------------------------------------------------------------------------------------------------
 
@@ -371,7 +374,7 @@ automata2.addTransition('q6', 'q6', 'b');
 
 // Main function testing
 console.log(automata2);
-automata = reduceAFN(automata2);
+automata2 = reduceAFN(automata2);
 console.log(automata2);
 console.log(automata2.transitions);
 
