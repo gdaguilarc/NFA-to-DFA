@@ -136,6 +136,99 @@ function dist(i, j, tableD, tableS) {
 // function deleteState(deleteIndex, sustituteIndex, automata){
 //   let deletedState =
 // }
+/**
+ *
+ * @param {Object} tableD Hashtable of the status of every state
+ */
+function minimizeConstruction(tableD, automata) {
+  const equivalent = [];
+  Object.keys(tableD).forEach(elem => {
+    if (tableD[elem] === 0) {
+      const min = elem.split(',')[0];
+      const max = elem.split(',')[1];
+
+      const temp = [];
+      let newPair = true;
+
+      for (let i = 0; i < equivalent.length; i += 1) {
+        for (let j = 0; j < equivalent[i].length; j += 1) {
+          if (min === equivalent[i][j]) {
+            equivalent[i].push(min);
+            equivalent[i].push(max);
+            newPair = false;
+          }
+        }
+      }
+
+      if (newPair) {
+        temp.push(min);
+        temp.push(max);
+        equivalent.push(temp);
+      }
+    }
+  });
+
+  // Unique and sorting
+  equivalent.forEach(arr => {
+    arr.filter((value, index, self) => {
+      return self.indexOf(value) === index;
+    });
+    arr.sort((a, b) => {
+      return a > b;
+    });
+  });
+
+  // Get and assign all the transitions
+  const toDelete = [];
+  let fatherTransitions = [];
+  for (let i = 0; i < equivalent.length; i += 1) {
+    fatherTransitions = [];
+
+    for (let j = 0; j < equivalent[i].length; j += 1) {
+      fatherTransitions = fatherTransitions.concat(
+        automata.searchFinals(automata.searchStateByIndex(equivalent[i][j]))
+      );
+    }
+    // delete and reasign
+    const electedState = equivalent[i][0];
+
+    // Add the states that are going to be deleted
+    equivalent[i].forEach(state => {
+      if (state !== electedState) {
+        toDelete.push(automata.searchStateByIndex(state));
+      }
+    });
+
+    for (let a = 0; a < fatherTransitions.length; a += 1) {
+      if (
+        fatherTransitions[a].final !== electedState &&
+        !automata.existTransition(
+          { letter: fatherTransitions[a].letter, final: electedState },
+          fatherTransitions[a].initial
+        )
+      ) {
+        // Delete Transition
+        automata.deleteTransition(
+          fatherTransitions[a].initial,
+          fatherTransitions[a].letter,
+          fatherTransitions[a].final
+        );
+
+        // Add transition
+        automata.addTransition(
+          fatherTransitions[a].initial,
+          automata.searchStateByIndex(electedState),
+          fatherTransitions[a].letter
+        );
+      }
+    }
+  }
+  toDelete.forEach(state => {
+    automata.removeTransitions(state);
+    automata.removeState(state);
+  });
+  return automata;
+}
 
 /**
  *
@@ -179,59 +272,108 @@ function reduceAFN(automata) {
       }
     }
   }
-  console.log('StatesD', statesD);
+  return minimizeConstruction(statesD, automata);
 }
 
-// THIS SECTION IS ONLY FOR TESTING!!! SHOULD BE REMOVED AT THE END OF THE DEVELOPMENT
+// // THIS SECTION IS ONLY FOR TESTING!!! SHOULD BE REMOVED AT THE END OF THE DEVELOPMENT
 
-const automata = new AFD();
-automata.addState('q0');
-automata.addState('q1');
-automata.addState('q2');
-automata.addState('q3');
-automata.addState('q4');
-automata.addState('q5');
-automata.addState('q6');
-automata.addState('q7');
+// let automata = new AFD();
+// automata.addState('q0');
+// automata.addState('q1');
+// automata.addState('q2');
+// automata.addState('q3');
+// automata.addState('q4');
+// automata.addState('q5');
+// automata.addState('q6');
+// automata.addState('q7');
 
-automata.addInitial('q0');
+// automata.addInitial('q0');
 
-automata.addFinal('q1');
-automata.addFinal('q2');
-automata.addFinal('q3');
-automata.addFinal('q4');
-automata.addFinal('q5');
-automata.addFinal('q6');
+// automata.addFinal('q1');
+// automata.addFinal('q2');
+// automata.addFinal('q3');
+// automata.addFinal('q4');
+// automata.addFinal('q5');
+// automata.addFinal('q6');
 
-automata.addLetter('a');
-automata.addLetter('b');
+// automata.addLetter('a');
+// automata.addLetter('b');
 
-automata.addTransition('q0', 'q1', 'a');
-automata.addTransition('q0', 'q4', 'b');
+// automata.addTransition('q0', 'q1', 'a');
+// automata.addTransition('q0', 'q4', 'b');
 
-automata.addTransition('q1', 'q2', 'a');
-automata.addTransition('q1', 'q3', 'b');
+// automata.addTransition('q1', 'q2', 'a');
+// automata.addTransition('q1', 'q3', 'b');
 
-automata.addTransition('q2', 'q7', 'a');
-automata.addTransition('q2', 'q7', 'b');
+// automata.addTransition('q2', 'q7', 'a');
+// automata.addTransition('q2', 'q7', 'b');
 
-automata.addTransition('q3', 'q7', 'a');
-automata.addTransition('q3', 'q3', 'b');
+// automata.addTransition('q3', 'q7', 'a');
+// automata.addTransition('q3', 'q3', 'b');
 
-automata.addTransition('q4', 'q5', 'a');
-automata.addTransition('q4', 'q6', 'b');
+// automata.addTransition('q4', 'q5', 'a');
+// automata.addTransition('q4', 'q6', 'b');
 
-automata.addTransition('q5', 'q7', 'a');
-automata.addTransition('q5', 'q7', 'b');
+// automata.addTransition('q5', 'q7', 'a');
+// automata.addTransition('q5', 'q7', 'b');
 
-automata.addTransition('q6', 'q7', 'a');
-automata.addTransition('q6', 'q6', 'b');
+// automata.addTransition('q6', 'q7', 'a');
+// automata.addTransition('q6', 'q6', 'b');
 
-automata.addTransition('q7', 'q7', 'a');
-automata.addTransition('q7', 'q7', 'b');
+// automata.addTransition('q7', 'q7', 'a');
+// automata.addTransition('q7', 'q7', 'b');
+
+// // Main function testing
+// automata = reduceAFN(automata);
+// console.log(automata);
+// console.log(automata.transitions);
+
+// -------------------------------------------------------------------------------------------------
+
+let automata2 = new AFD();
+automata2.addState('q0');
+automata2.addState('q1');
+automata2.addState('q2');
+automata2.addState('q3');
+automata2.addState('q4');
+automata2.addState('q5');
+automata2.addState('q6');
+
+automata2.addInitial('q0');
+
+automata2.addFinal('q4');
+automata2.addFinal('q5');
+automata2.addFinal('q6');
+
+automata2.addLetter('a');
+automata2.addLetter('b');
+
+automata2.addTransition('q0', 'q1', 'b');
+automata2.addTransition('q0', 'q4', 'a');
+
+automata2.addTransition('q1', 'q2', 'b');
+automata2.addTransition('q1', 'q5', 'a');
+
+automata2.addTransition('q2', 'q3', 'b');
+automata2.addTransition('q2', 'q6', 'a');
+
+automata2.addTransition('q3', 'q3', 'a');
+automata2.addTransition('q3', 'q3', 'b');
+
+automata2.addTransition('q4', 'q4', 'a');
+automata2.addTransition('q4', 'q4', 'b');
+
+automata2.addTransition('q5', 'q5', 'a');
+automata2.addTransition('q5', 'q5', 'b');
+
+automata2.addTransition('q6', 'q6', 'a');
+automata2.addTransition('q6', 'q6', 'b');
 
 // Main function testing
-reduceAFN(automata);
+console.log(automata2);
+automata = reduceAFN(automata2);
+console.log(automata2);
+console.log(automata2.transitions);
 
 // END OF THE TESTING SECTION
 
