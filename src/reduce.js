@@ -378,5 +378,88 @@ console.log(automata2.transitions);
 
 // END OF THE TESTING SECTION
 
+// -------------------------------------------------------------------------------------------------
+
+let automata3 = new AFD();
+automata3.addState('A');
+automata3.addState('B');
+automata3.addState('C');
+automata3.addState('D');
+automata3.addState('E');
+
+automata3.addInitial('A');
+
+automata3.addFinal('E');
+
+automata3.addLetter('a');
+automata3.addLetter('b');
+
+automata3.addTransition('A', 'B', 'a');
+automata3.addTransition('A', 'C', 'b');
+
+automata3.addTransition('B', 'B', 'a');
+automata3.addTransition('B', 'D', 'b');
+
+automata3.addTransition('C', 'C', 'b');
+automata3.addTransition('C', 'B', 'a');
+
+automata3.addTransition('D', 'B', 'a');
+automata3.addTransition('D', 'E', 'b');
+
+automata3.addTransition('E', 'B', 'a');
+automata3.addTransition('E', 'C', 'b');
+
+// Main function testing
+console.log(automata3);
+automata3 = reduceAFN(automata3);
+console.log(automata3);
+console.log(automata3.transitions);
+
+// END OF THE TESTING SECTION
+// -------------------------------------------------------------------------------------------------
+
+const automata4 = new AFD();
+automata4.addState('A');
+automata4.addState('B');
+automata4.addState('C');
+automata4.addState('D');
+automata4.addState('E');
+automata4.addState('F');
+
+automata4.addInitial('A');
+
+automata4.addFinal('E');
+automata4.addFinal('D');
+automata4.addFinal('C');
+
+automata4.addLetter('a');
+automata4.addLetter('b');
+
+automata4.addTransition('A', 'B', 'a');
+automata4.addTransition('A', 'C', 'b');
+
+automata4.addTransition('B', 'A', 'a');
+automata4.addTransition('B', 'D', 'b');
+
+automata4.addTransition('C', 'F', 'b');
+automata4.addTransition('C', 'E', 'a');
+
+automata4.addTransition('D', 'E', 'a');
+automata4.addTransition('D', 'F', 'b');
+
+automata4.addTransition('E', 'E', 'a');
+automata4.addTransition('E', 'F', 'b');
+
+automata4.addTransition('F', 'F', 'b');
+automata4.addTransition('F', 'F', 'a');
+
+// Main function testing
+console.log(automata4);
+automata3 = reduceAFN(automata4);
+console.log(automata4);
+console.log(automata4.transitions);
+
+// END OF THE TESTING SECTION
+
 // export the main function of the file
 module.exports = reduceAFN;
