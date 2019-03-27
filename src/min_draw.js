@@ -541,7 +541,6 @@ let three = function(sketch) {
     let loops = [];
 
     let convertion = function(min) {
-        let nodes = [];
         for (state of min.states) {
             let n = new Node("A", true)
 

@@ -541,7 +541,7 @@ let two = function(sketch) {
     let loops = [];
 
     let convertion = function(dfa) {
-        let nodes = [];
+        console.log("dfa", dfa.states)
         for (state of dfa.states) {
             let n = new Node("A", true)
 

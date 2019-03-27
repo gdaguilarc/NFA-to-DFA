@@ -541,9 +541,8 @@ let one = function(sketch) {
     let loops = [];
 
     let convertion = function(afn) {
-        let nodes = [];
         for (state of afn.states) {
-            console.log('state', state)
+            //console.log('state', state)
             nodes.push(new Node(state === '' ? "" : state, afn.initial === state, afn.final.includes(state), state === ''));
         }
 
