@@ -5,13 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>
-    <script src="Node.js"></script>
-    <script src="Transition.js"></script>
-    <script src="Loop.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>  
     <script src="index.js"></script>
 </head>
 <body>
+    <canvas id="canvas-bg"></canvas>
+    <div class="wrapper">
+        <div id="NFA"></div>
+        <div id="DFA"></div>
+        <div id="DFA-min"></div>
+    </div>
+
+    <script src="background.js"></script>
+    <script>
+        const NFA = new p5(s, "NFA");
+        const DFA = new p5(s, "DFA");
+        const min = new p5(s, "DFA-min");
+
+    </script>
 
 </body>
 </html>
