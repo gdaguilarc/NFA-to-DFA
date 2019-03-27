@@ -4,12 +4,13 @@ let s = function(sketch) {
     let loops = []
 
     class Node {
-        constructor(name, final = false, error = false) {
+        constructor(name, initial = false, final = false, error = false) {
             this.r = 30;
             this.x = sketch.random(0 + this.r, sketch.width - this.r);
             this.y = sketch.random(0 + this.r, sketch.height - this.r);
             this.name = name;
             this.selected = false;
+            this.initial = initial;
             this.final = final;
             this.error = error;
         }
@@ -40,6 +41,10 @@ let s = function(sketch) {
             sketch.ellipse(this.x, this.y, this.r*2);
             if (this.final) {
                 sketch.ellipse(this.x, this.y, this.r*2-15);
+            } else if (this.initial) {
+                sketch.strokeWeight(2);
+                sketch.line(this.x-this.r, this.y, this.x-this.r - 20, this.y + 20);
+                sketch.line(this.x-this.r, this.y, this.x-this.r - 20, this.y - 20);
             }
     
         }
@@ -539,12 +544,16 @@ let s = function(sketch) {
     sketch.setup = function() {
         sketch.createCanvas(800, 500);
 
-        for (let i = 0; i < 2; i++) {
-            nodes.push(new Node(String.fromCharCode(65+i), false));
-        }
-        nodes.push(new Node("error", false, true));
+        nodes.push(new Node("A", true));
+        nodes.push(new Node("B"));
+        nodes.push(new Node("C", false, false));
+        nodes.push(new Node("error", false, false, true));
         transitions.push(new Transition(nodes[0], nodes[1], ["a"]));
-        loops.push(new Loop(nodes[0], ["λ"]));
+        transitions.push(new Transition(nodes[1], nodes[2], ["a"]));
+        transitions.push(new Transition(nodes[1], nodes[3], ["b"]));
+        transitions.push(new Transition(nodes[2], nodes[3], ["b"]));
+
+        loops.push(new Loop(nodes[0], "b"));
     }
 
     sketch.draw = function() {
