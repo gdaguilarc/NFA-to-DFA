@@ -1,0 +1,12 @@
+1. Install node LTS version from here:
+https://nodejs.org/en/
+
+2. Go to the project dir and use the command via cli "npm i"
+
+3. Open the ./src directory and open in a browser the index.html file
+
+4. Have fun!
+
+/*******FOR MODIFY ***************/
+
+In the Javascript in the index.html you need to create your automata
