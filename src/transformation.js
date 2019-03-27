@@ -8,13 +8,16 @@
  * @since       1.0.0
  */
 
-// TODO: Update all the comments
-// TODO: Testing for this class (jest)
-// TODO: Simplificate the code
-
 const AFD = require('./AFD');
 const AFN = require('./AFN');
 
+/**
+ * This function returns an array of transitions from a array of states
+ * @param  {String []} array    Array of states of a FA
+ * @param  {String} letter   The letter we want the transitions
+ * @param  {Object} automata The NFA for transformation
+ * @return {Object}  An array of transitions
+ */
 function getTransitions(array, letter, automata) {
   const letterArray = [];
   const result = [];
@@ -37,6 +40,11 @@ function getTransitions(array, letter, automata) {
   return result.join(',');
 }
 
+/**
+ * Creates a table of all the lambda-closures of the FA
+ * @param  {Object} automata The NFA for transformation
+ * @return {Object []}          Hashmap of closures where the key is the state
+ */
 function tableOfClosures(automata) {
   const tableClosures = [];
   automata.states.forEach(state => {
@@ -56,6 +64,14 @@ function tableOfClosures(automata) {
   return tableClosures;
 }
 
+/**
+ * [tableTCreation description]
+ * @param  {String []} closure       The closure of a state
+ * @param  {[type]} letter        [description]
+ * @param  {[type]} automata      [description]
+ * @param  {[type]} tableClosures [description]
+ * @return {[type]}               [description]
+ */
 function tableTCreation(closure, letter, automata, tableClosures) {
   let temp = [];
   const transitionsT = getTransitions(closure, letter, automata);
@@ -82,6 +98,12 @@ function tableTCreation(closure, letter, automata, tableClosures) {
   return temp;
 }
 
+/**
+ * Return an array of the finals states that the DFA must have.
+ * @param  {Object} oldAutomata The NFA for transformation
+ * @param  {Object} newAutomata The DFA created by the script
+ * @return {String []}             An array of final states, sorted by letter
+ */
 function getFinals(oldAutomata, newAutomata) {
   const result = [];
   newAutomata.states.forEach(state => {
@@ -94,16 +116,14 @@ function getFinals(oldAutomata, newAutomata) {
   return result.sort((a, b) => a.split(',').length > b.split(',').length);
 }
 
+/**
+ * This is the main function of the file, the one in charge to transform a NFA to a DFA
+ * @param       {Object} automata The NFA for transformation
+ * @constructor
+ */
 function Transformation(automata) {
-  /**
-   * TABLE OF LAMBDA LOCKS aka CLOSURES
-   */
-
-  // Table of Lambda locks
+  // Creates the table of lambda-closures of the NFA
   const tableClosures = tableOfClosures(automata);
-  /**
-   * INITIALIZATION OF THE DETERMINISTIC AUTOMATA
-   */
 
   // Creation of the Deterministic Automata
   const result = new AFD();
@@ -257,7 +277,23 @@ e.addTransition('q1', 'q2', 'a');
 e.addTransition('q2', 'q0', 'b');
 e.addTransition('q2', 'q1', 'a');
 
-console.log('RESULT \n', Transformation(e).transitions);
+const y = new AFN();
+y.addLetter('a');
+y.addLetter('b');
+y.addState('q0');
+y.addState('q1');
+y.addState('q2');
+y.addState('q3');
+y.addInitial('q0');
+y.addFinal('q2');
+y.addFinal('q3');
+y.addTransition('q0', 'q1');
+y.addTransition('q0', 'q3');
+y.addTransition('q3', 'q3', 'a');
+y.addTransition('q1', 'q2', 'a');
+y.addTransition('q2', 'q1', 'b');
+
+console.log('RESULT \n', Transformation(y).transitions);
 // console.log('RESULT \n', Transformation(a));
 
 module.exports = Transformation(a);
