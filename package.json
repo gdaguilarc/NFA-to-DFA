@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon ./bin/www",
     "test": "jest",
     "build": "browserify ./src/AFN.js -t babelify --outfile bundle.js",
     "lint": "eslint ./src/ --ext .js  "
@@ -20,13 +21,16 @@
   "homepage": "https://github.com/gdaguilarc/AFN-to-AFD#readme",
   "dependencies": {
     "lodash": "^4.17.11",
-    "p5": "^0.7.3"
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "pug": "2.0.0-beta11"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.3.4",
     "babel-core": "^6.26.3",
-    "babelify": "^10.0.0",
-    "browserify": "^16.2.3",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.1.0",
@@ -36,8 +40,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "jest": "^24.3.1",
-    "prettier": "^1.16.4",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4"
   }
 }
