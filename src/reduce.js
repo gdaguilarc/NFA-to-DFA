@@ -1,5 +1,5 @@
-/* eslint-disable no-param-reassign */
 /** ESLINT DEVELOPMENT DISABLED RULES!!! DELETE AT THE  END OF THE DEVELOPING */
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
 
@@ -13,8 +13,6 @@
  *
  * @description This script is in charge of performing the minimization of the AFD resulting from the transformation of the AFN
  */
-
-// TODO: Reduce method
 
 const AFD = require('./AFD');
 
