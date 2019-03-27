@@ -14,7 +14,6 @@
  * @description This script is in charge of performing the minimization of the AFD resulting from the transformation of the AFN
  */
 
-const AFD = require('./AFD');
 
 /**
  *
@@ -460,4 +459,3 @@ function reduceAFN(automata) {
 // END OF THE TESTING SECTION
 
 // export the main function of the file
-module.exports = reduceAFN;

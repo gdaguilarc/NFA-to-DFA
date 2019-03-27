@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>
+
+    <script src="afn_draw.js"></script>
+    <script src="dfa_draw.js"></script>
+    <script src="min_draw.js"></script>
+    <script src="Automata.js"></script>
+    <script src="AFD.js"></script>
+    <script src="AFN.js"></script>
+    <script src="transformation.js"></script>
+    <script src="reduce.js"></script>
+  </head>
+  <body>
+    <canvas id="canvas-bg"></canvas>
+    <div class="wrapper">
+      
+      <div id="NFA"></div>
+      <div id="DFA"></div>
+      <div id="DFA-min"></div>
+    </div>
+
+    <script src="background.js"></script>
+    <script>
+      const afn = new AFN();
+      // afn.addLetter('c');
+      afn.addLetter('b');
+      afn.addLetter('a');
+      afn.addState('q0');
+      afn.addState('q1');
+      afn.addState('q2');
+      afn.addInitial('q0');
+      afn.addFinal('q2');
+      afn.addTransition('q0', 'q1', 'a');
+      afn.addTransition('q0', 'q2', 'b');
+      afn.addTransition('q1', 'q1', 'a');
+      afn.addTransition('q1', 'q0', 'a');
+      afn.addTransition('q1', 'q0', 'b');
+      afn.addTransition('q2', 'q2', 'b');
+      afn.addTransition('q2', 'q1', 'b');
+
+
+      const NFA = new p5(one, 'NFA');
+
+      let dfa = Transformation(afn);
+      console.log(dfa);
+      const DFA = new p5(two, 'DFA');
+
+      let min = reduceAFN(dfa);
+      const MIN = new p5(three, 'DFA-min');
+
+
+
+
+      
+    </script>
+  </body>
+</html>

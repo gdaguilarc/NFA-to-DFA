@@ -1,8 +1,4 @@
-let s = function(sketch) { 
-    let nodes = []
-    let transitions = [];
-    let loops = []
-
+let one = function(sketch) { 
     class Node {
         constructor(name, initial = false, final = false, error = false) {
             this.r = 30;
@@ -540,20 +536,108 @@ let s = function(sketch) {
     let selectedNode;
     let selectedTransition;
     let selectedLoop;
+    let nodes = [];
+    let transitions = [];
+    let loops = [];
+
+    let convertion = function(afn) {
+        let nodes = [];
+        for (state of afn.states) {
+            console.log('state', state)
+            nodes.push(new Node(state === '' ? "" : state, afn.initial === state, afn.final.includes(state), state === ''));
+        }
+
+        let transitions = [];
+        let loops = [];
+        let tempTrans = [...afn.listTransitions()]
+        console.log(tempTrans)
+        for (let i = 0; i < tempTrans.length; i++) {
+            if (tempTrans[i]) {
+                let letter = [tempTrans[i].letter];
+            
+
+            for (let j = i+1; j < tempTrans.length-1; j++) {
+                if (tempTrans[j] && tempTrans[j].initial === tempTrans[i].initial && tempTrans[j].final === tempTrans[i].final){
+                    console.log(tempTrans[i], tempTrans[j]);
+                    if (!letter.includes(tempTrans[j].letter)){
+                        letter.push(tempTrans[j].letter)
+                    }
+                    tempTrans[j] = null;
+                    console.log(letter)
+
+                    
+                }
+            }
+
+            if (tempTrans[i].initial === tempTrans[i].final) {
+                loops.push(new Loop(nodes.find( (elem) => {
+                    return elem.name == tempTrans[i].initial;
+                }), letter));
+            } else {
+                transitions.push(new Transition(nodes.find( (elem) => {
+                    return elem.name == tempTrans[i].initial;
+                }), nodes.find( (elem) => {
+                    return elem.name == tempTrans[i].final;
+                }), letter))
+            }
+
+
+        }
+
+        }
+        //     let letters = [afn.listTransitions()[i].letter];
+
+        //     for (let j = i+1; j < afn.listTransitions().length-1; j++) {
+        //     if (afn.listTransitions()[i].initial === afn.listTransitions()[j].initial &&
+        //         afn.listTransitions()[i].final === afn.listTransitions()[j].final) {
+        //         letters.push(afn.listTransitions()[j].letter)
+        //         }
+        //     }
+
+        //     if (afn.listTransitions()[i].initial == afn.listTransitions()[i].final) {
+        //     loops.push(new Loop(nodes.find( (elem) => {
+        //         return elem.name == afn.listTransitions()[i].initial;
+        //     }), letters));
+        //     } else {
+        //         // console.log(nodes.find( (elem) => {
+        //         //     return elem.name == afn.listTransitions()[i].initial;
+        //         // }), nodes.find( (elem) => {
+        //         //     return elem.name == afn.listTransitions()[i].final;
+        //         // }), letters)
+        //     transitions.push(new Transition(nodes.find( (elem) => {
+        //         return elem.name === afn.listTransitions()[i].initial;
+        //     }), nodes.find( (elem) => {
+        //         // console.log(afn.listTransitions()[i])
+
+        //         return elem.name === afn.listTransitions()[i].final;
+        //     }), letters));
+        //     }
+        // }
+
+        return {n: nodes, t: transitions, l: loops};
+    }
+
 
     sketch.setup = function() {
         sketch.createCanvas(800, 500);
 
-        nodes.push(new Node("A", true));
-        nodes.push(new Node("B"));
-        nodes.push(new Node("C", false, false));
-        nodes.push(new Node("error", false, false, true));
-        transitions.push(new Transition(nodes[0], nodes[1], ["a"]));
-        transitions.push(new Transition(nodes[1], nodes[2], ["a"]));
-        transitions.push(new Transition(nodes[1], nodes[3], ["b"]));
-        transitions.push(new Transition(nodes[2], nodes[3], ["b"]));
+        let a = convertion(afn);
+        nodes = a.n;
+        transitions = a.t;
+        console.log(transitions);
+        loops = a.l;
 
-        loops.push(new Loop(nodes[0], "b"));
+        // nodes.push(new Node("A", true));
+        // nodes.push(new Node("B"));
+        // nodes.push(new Node("C", false, false));
+        // nodes.push(new Node("error", false, false, true));
+        
+        // transitions.push(new Transition(nodes[0], nodes[1], ["a"]));
+        // transitions.push(new Transition(nodes[1], nodes[2], ["a"]));
+        // transitions.push(new Transition(nodes[1], nodes[3], ["b"]));
+        // transitions.push(new Transition(nodes[2], nodes[3], ["b"]));
+
+        // loops.push(new Loop(nodes[0], "b"));
     }
 
     sketch.draw = function() {

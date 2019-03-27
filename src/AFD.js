@@ -2,8 +2,6 @@
 // TODO: Update Class Authors
 // TODO: Testing for this class (jest)
 
-const Automata = require('./Automata');
-
 class AFD extends Automata {
   // Adds a letter to the alphabet
   addLetter(letter) {
@@ -38,5 +36,3 @@ class AFD extends Automata {
     );
   }
 }
-
-module.exports = AFD;

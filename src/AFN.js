@@ -3,7 +3,6 @@
 // TODO: Testing for this class (jest)
 
 /* eslint-disable no-param-reassign */
-const Automata = require('./Automata');
 
 class AFN extends Automata {
   // Adds a transition if is not repeated
@@ -53,5 +52,3 @@ class AFN extends Automata {
     });
   }
 }
-
-module.exports = AFN;

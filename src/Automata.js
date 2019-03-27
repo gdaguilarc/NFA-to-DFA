@@ -163,4 +163,3 @@ class Automata {
   }
 }
 
-module.exports = Automata;
