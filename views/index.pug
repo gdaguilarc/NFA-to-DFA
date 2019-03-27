@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  body
+  .center-wrapper
+      h1.title Tranformation from NFA to DFA
+      form#uploadForm(method='POST' action='/upload' ref='uploadForm' enctype='multipart/form-data')
+        .double-wrapper
+          div.form-group.items
+            label(for='tcc') Initial state:
+            input(type='text', placeholder='q1', name='initial').form-control
+          br
+          div.form-group.items
+            label(for='tcc') Final state(s):
+            input(type='text', placeholder='q5, q3', name='final').form-control
+          br
+          div
+            label(for='tcc') Alphabet:
+            input.form-control(type='text', placeholder='a,b', name='alphabet')
+        br
+        .input-group.mb-3
+          .custom-file
+            input#inputGroupFile02.custom-file-input(type='file')
+            label(for='inputGroupFile02' aria-describedby='inputGroupFileAddon02').custom-file-label Choose file
+        .double-wrapper
+          div.form-group.items
+            button.btn.btn-success.button(type='submit') Transformar
