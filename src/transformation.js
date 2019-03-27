@@ -293,7 +293,4 @@ y.addTransition('q3', 'q3', 'a');
 y.addTransition('q1', 'q2', 'a');
 y.addTransition('q2', 'q1', 'b');
 
-console.log('RESULT \n', Transformation(y).transitions);
-// console.log('RESULT \n', Transformation(a));
-
-module.exports = Transformation(a);
+module.exports = Transformation;

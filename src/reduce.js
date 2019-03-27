@@ -275,187 +275,187 @@ function reduceAFN(automata) {
 }
 
 // // THIS SECTION IS ONLY FOR TESTING!!! SHOULD BE REMOVED AT THE END OF THE DEVELOPMENT
-
-let automata = new AFD();
-automata.addState('q0');
-automata.addState('q1');
-automata.addState('q2');
-automata.addState('q3');
-automata.addState('q4');
-automata.addState('q5');
-automata.addState('q6');
-automata.addState('q7');
-
-automata.addInitial('q0');
-
-automata.addFinal('q1');
-automata.addFinal('q2');
-automata.addFinal('q3');
-automata.addFinal('q4');
-automata.addFinal('q5');
-automata.addFinal('q6');
-
-automata.addLetter('a');
-automata.addLetter('b');
-
-automata.addTransition('q0', 'q1', 'a');
-automata.addTransition('q0', 'q4', 'b');
-
-automata.addTransition('q1', 'q2', 'a');
-automata.addTransition('q1', 'q3', 'b');
-
-automata.addTransition('q2', 'q7', 'a');
-automata.addTransition('q2', 'q7', 'b');
-
-automata.addTransition('q3', 'q7', 'a');
-automata.addTransition('q3', 'q3', 'b');
-
-automata.addTransition('q4', 'q5', 'a');
-automata.addTransition('q4', 'q6', 'b');
-
-automata.addTransition('q5', 'q7', 'a');
-automata.addTransition('q5', 'q7', 'b');
-
-automata.addTransition('q6', 'q7', 'a');
-automata.addTransition('q6', 'q6', 'b');
-
-automata.addTransition('q7', 'q7', 'a');
-automata.addTransition('q7', 'q7', 'b');
+//
+// let automata = new AFD();
+// automata.addState('q0');
+// automata.addState('q1');
+// automata.addState('q2');
+// automata.addState('q3');
+// automata.addState('q4');
+// automata.addState('q5');
+// automata.addState('q6');
+// automata.addState('q7');
+//
+// automata.addInitial('q0');
+//
+// automata.addFinal('q1');
+// automata.addFinal('q2');
+// automata.addFinal('q3');
+// automata.addFinal('q4');
+// automata.addFinal('q5');
+// automata.addFinal('q6');
+//
+// automata.addLetter('a');
+// automata.addLetter('b');
+//
+// automata.addTransition('q0', 'q1', 'a');
+// automata.addTransition('q0', 'q4', 'b');
+//
+// automata.addTransition('q1', 'q2', 'a');
+// automata.addTransition('q1', 'q3', 'b');
+//
+// automata.addTransition('q2', 'q7', 'a');
+// automata.addTransition('q2', 'q7', 'b');
+//
+// automata.addTransition('q3', 'q7', 'a');
+// automata.addTransition('q3', 'q3', 'b');
+//
+// automata.addTransition('q4', 'q5', 'a');
+// automata.addTransition('q4', 'q6', 'b');
+//
+// automata.addTransition('q5', 'q7', 'a');
+// automata.addTransition('q5', 'q7', 'b');
+//
+// automata.addTransition('q6', 'q7', 'a');
+// automata.addTransition('q6', 'q6', 'b');
+//
+// automata.addTransition('q7', 'q7', 'a');
+// automata.addTransition('q7', 'q7', 'b');
+//
+// // Main function testing
+// // automata = reduceAFN(automata);
+// // console.log(automata);
+// // console.log(automata.transitions);
+//
+// // -------------------------------------------------------------------------------------------------
+//
+// let automata2 = new AFD();
+// automata2.addState('q0');
+// automata2.addState('q1');
+// automata2.addState('q2');
+// automata2.addState('q3');
+// automata2.addState('q4');
+// automata2.addState('q5');
+// automata2.addState('q6');
+//
+// automata2.addInitial('q0');
+//
+// automata2.addFinal('q4');
+// automata2.addFinal('q5');
+// automata2.addFinal('q6');
+//
+// automata2.addLetter('a');
+// automata2.addLetter('b');
+//
+// automata2.addTransition('q0', 'q1', 'b');
+// automata2.addTransition('q0', 'q4', 'a');
+//
+// automata2.addTransition('q1', 'q2', 'b');
+// automata2.addTransition('q1', 'q5', 'a');
+//
+// automata2.addTransition('q2', 'q3', 'b');
+// automata2.addTransition('q2', 'q6', 'a');
+//
+// automata2.addTransition('q3', 'q3', 'a');
+// automata2.addTransition('q3', 'q3', 'b');
+//
+// automata2.addTransition('q4', 'q4', 'a');
+// automata2.addTransition('q4', 'q4', 'b');
+//
+// automata2.addTransition('q5', 'q5', 'a');
+// automata2.addTransition('q5', 'q5', 'b');
+//
+// automata2.addTransition('q6', 'q6', 'a');
+// automata2.addTransition('q6', 'q6', 'b');
+//
+// // Main function testing
+// // console.log(automata2);
+// // automata2 = reduceAFN(automata2);
+// // console.log(automata2);
+// // console.log(automata2.transitions);
+//
+// // END OF THE TESTING SECTION
+//
+// // -------------------------------------------------------------------------------------------------
+//
+// let automata3 = new AFD();
+// automata3.addState('A');
+// automata3.addState('B');
+// automata3.addState('C');
+// automata3.addState('D');
+// automata3.addState('E');
+//
+// automata3.addInitial('A');
+//
+// automata3.addFinal('E');
+//
+// automata3.addLetter('a');
+// automata3.addLetter('b');
+//
+// automata3.addTransition('A', 'B', 'a');
+// automata3.addTransition('A', 'C', 'b');
+//
+// automata3.addTransition('B', 'B', 'a');
+// automata3.addTransition('B', 'D', 'b');
+//
+// automata3.addTransition('C', 'C', 'b');
+// automata3.addTransition('C', 'B', 'a');
+//
+// automata3.addTransition('D', 'B', 'a');
+// automata3.addTransition('D', 'E', 'b');
+//
+// automata3.addTransition('E', 'B', 'a');
+// automata3.addTransition('E', 'C', 'b');
+//
+// // Main function testing
+// // console.log(automata3);
+// // automata3 = reduceAFN(automata3);
+// // console.log(automata3);
+// // console.log(automata3.transitions);
+//
+// // END OF THE TESTING SECTION
+// // -------------------------------------------------------------------------------------------------
+//
+// const automata4 = new AFD();
+// automata4.addState('A');
+// automata4.addState('B');
+// automata4.addState('C');
+// automata4.addState('D');
+// automata4.addState('E');
+// automata4.addState('F');
+//
+// automata4.addInitial('A');
+//
+// automata4.addFinal('E');
+// automata4.addFinal('D');
+// automata4.addFinal('C');
+//
+// automata4.addLetter('a');
+// automata4.addLetter('b');
+//
+// automata4.addTransition('A', 'B', 'a');
+// automata4.addTransition('A', 'C', 'b');
+//
+// automata4.addTransition('B', 'A', 'a');
+// automata4.addTransition('B', 'D', 'b');
+//
+// automata4.addTransition('C', 'F', 'b');
+// automata4.addTransition('C', 'E', 'a');
+//
+// automata4.addTransition('D', 'E', 'a');
+// automata4.addTransition('D', 'F', 'b');
+//
+// automata4.addTransition('E', 'E', 'a');
+// automata4.addTransition('E', 'F', 'b');
+//
+// automata4.addTransition('F', 'F', 'b');
+// automata4.addTransition('F', 'F', 'a');
 
 // Main function testing
-automata = reduceAFN(automata);
-console.log(automata);
-console.log(automata.transitions);
-
-// -------------------------------------------------------------------------------------------------
-
-let automata2 = new AFD();
-automata2.addState('q0');
-automata2.addState('q1');
-automata2.addState('q2');
-automata2.addState('q3');
-automata2.addState('q4');
-automata2.addState('q5');
-automata2.addState('q6');
-
-automata2.addInitial('q0');
-
-automata2.addFinal('q4');
-automata2.addFinal('q5');
-automata2.addFinal('q6');
-
-automata2.addLetter('a');
-automata2.addLetter('b');
-
-automata2.addTransition('q0', 'q1', 'b');
-automata2.addTransition('q0', 'q4', 'a');
-
-automata2.addTransition('q1', 'q2', 'b');
-automata2.addTransition('q1', 'q5', 'a');
-
-automata2.addTransition('q2', 'q3', 'b');
-automata2.addTransition('q2', 'q6', 'a');
-
-automata2.addTransition('q3', 'q3', 'a');
-automata2.addTransition('q3', 'q3', 'b');
-
-automata2.addTransition('q4', 'q4', 'a');
-automata2.addTransition('q4', 'q4', 'b');
-
-automata2.addTransition('q5', 'q5', 'a');
-automata2.addTransition('q5', 'q5', 'b');
-
-automata2.addTransition('q6', 'q6', 'a');
-automata2.addTransition('q6', 'q6', 'b');
-
-// Main function testing
-console.log(automata2);
-automata2 = reduceAFN(automata2);
-console.log(automata2);
-console.log(automata2.transitions);
-
-// END OF THE TESTING SECTION
-
-// -------------------------------------------------------------------------------------------------
-
-let automata3 = new AFD();
-automata3.addState('A');
-automata3.addState('B');
-automata3.addState('C');
-automata3.addState('D');
-automata3.addState('E');
-
-automata3.addInitial('A');
-
-automata3.addFinal('E');
-
-automata3.addLetter('a');
-automata3.addLetter('b');
-
-automata3.addTransition('A', 'B', 'a');
-automata3.addTransition('A', 'C', 'b');
-
-automata3.addTransition('B', 'B', 'a');
-automata3.addTransition('B', 'D', 'b');
-
-automata3.addTransition('C', 'C', 'b');
-automata3.addTransition('C', 'B', 'a');
-
-automata3.addTransition('D', 'B', 'a');
-automata3.addTransition('D', 'E', 'b');
-
-automata3.addTransition('E', 'B', 'a');
-automata3.addTransition('E', 'C', 'b');
-
-// Main function testing
-console.log(automata3);
-automata3 = reduceAFN(automata3);
-console.log(automata3);
-console.log(automata3.transitions);
-
-// END OF THE TESTING SECTION
-// -------------------------------------------------------------------------------------------------
-
-const automata4 = new AFD();
-automata4.addState('A');
-automata4.addState('B');
-automata4.addState('C');
-automata4.addState('D');
-automata4.addState('E');
-automata4.addState('F');
-
-automata4.addInitial('A');
-
-automata4.addFinal('E');
-automata4.addFinal('D');
-automata4.addFinal('C');
-
-automata4.addLetter('a');
-automata4.addLetter('b');
-
-automata4.addTransition('A', 'B', 'a');
-automata4.addTransition('A', 'C', 'b');
-
-automata4.addTransition('B', 'A', 'a');
-automata4.addTransition('B', 'D', 'b');
-
-automata4.addTransition('C', 'F', 'b');
-automata4.addTransition('C', 'E', 'a');
-
-automata4.addTransition('D', 'E', 'a');
-automata4.addTransition('D', 'F', 'b');
-
-automata4.addTransition('E', 'E', 'a');
-automata4.addTransition('E', 'F', 'b');
-
-automata4.addTransition('F', 'F', 'b');
-automata4.addTransition('F', 'F', 'a');
-
-// Main function testing
-console.log(automata4);
-automata3 = reduceAFN(automata4);
-console.log(automata4);
-console.log(automata4.transitions);
+// console.log(automata4);
+// automata3 = reduceAFN(automata4);
+// console.log(automata4);
+// console.log(automata4.transitions);
 
 // END OF THE TESTING SECTION
 
