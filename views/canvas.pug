@@ -1,0 +1,11 @@
+extends layout
+block content 
+    canvas#canvas-bg
+    .wrapper    
+        div#NFA
+        div#DFA
+        div#DFA-min
+    script.
+        const NFA = new p5(s, 'NFA');
+        const DFA = new p5(s, 'DFA');
+        const min = new p5(s, 'DFA-min');
