@@ -14,12 +14,12 @@
 // TODO: Update all the comments
 
 class Automata {
-  constructor() {
-    this.states = [];
-    this.alphabet = [];
-    this.initial = null;
-    this.final = [];
-    this.transitions = [];
+  constructor(states = [], alphabet = [], initial = null, final = [], transitions = []) {
+    this.states = states;
+    this.alphabet = alphabet;
+    this.initial = initial;
+    this.final = final;
+    this.transitions = transitions;
   }
 
   // Adds a state if is not repeated

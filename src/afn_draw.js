@@ -548,21 +548,21 @@ let one = function(sketch) {
 
         let transitions = [];
         let loops = [];
-        let tempTrans = [...afn.listTransitions()]
-        console.log(tempTrans)
+        let tempTrans = [...afn.transitions]
+        //console.log(tempTrans)
         for (let i = 0; i < tempTrans.length; i++) {
             if (tempTrans[i]) {
                 let letter = [tempTrans[i].letter];
             
 
-            for (let j = i+1; j < tempTrans.length-1; j++) {
+            for (let j = i+1; j < tempTrans.length; j++) {
                 if (tempTrans[j] && tempTrans[j].initial === tempTrans[i].initial && tempTrans[j].final === tempTrans[i].final){
-                    console.log(tempTrans[i], tempTrans[j]);
+                    //console.log(tempTrans[i], tempTrans[j]);
                     if (!letter.includes(tempTrans[j].letter)){
                         letter.push(tempTrans[j].letter)
                     }
                     tempTrans[j] = null;
-                    console.log(letter)
+                    //console.log(letter)
 
                     
                 }
@@ -623,7 +623,7 @@ let one = function(sketch) {
         let a = convertion(afn);
         nodes = a.n;
         transitions = a.t;
-        console.log(transitions);
+        //console.log(transitions);
         loops = a.l;
 
         // nodes.push(new Node("A", true));

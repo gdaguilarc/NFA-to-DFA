@@ -549,7 +549,7 @@ let three = function(sketch) {
 
         let transitions = [];
         let loops = [];
-        let tempTrans = [...min.listTransitions()]
+        let tempTrans = [...min.transitions]
         console.log(tempTrans)
         for (let i = 0; i < tempTrans.length; i++) {
             if (tempTrans[i]) {

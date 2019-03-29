@@ -543,14 +543,13 @@ let two = function(sketch) {
     let convertion = function(dfa) {
         console.log("dfa", dfa.states)
         for (state of dfa.states) {
-            let n = new Node("A", true)
-
+            console.log(state)
             nodes.push(new Node(state === '' ? "" : state, dfa.initial === state, dfa.final.includes(state), state === ''));
         }
 
         let transitions = [];
         let loops = [];
-        let tempTrans = [...dfa.listTransitions()]
+        let tempTrans = [...dfa.transitions]
         console.log(tempTrans)
         for (let i = 0; i < tempTrans.length; i++) {
             if (tempTrans[i]) {
