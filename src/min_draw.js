@@ -1,9 +1,32 @@
 let three = function(sketch) { 
     class Node {
         constructor(name, initial = false, final = false, error = false) {
-            this.r = 30;
-            this.x = sketch.random(0 + this.r, sketch.width - this.r);
-            this.y = sketch.random(0 + this.r, sketch.height - this.r);
+            if (sketch.textWidth(name) < 20) {
+                this.r = 35;
+            } else if (sketch.textWidth(name) < 35) {
+                this.r = sketch.textWidth(name) + 15;
+            } else {
+                this.r = 48;
+            }
+            if (initial) {
+                this.x = 100;
+                this.y = sketch.height/2;
+
+            } else {
+                let zone = sketch.random([1,2,3,4])
+                if (zone == 1) {
+                    this.x = sketch.random(200 + this.r, 400 - this.r);
+                } else if (zone == 2) {
+                    this.x = sketch.random(400 + this.r, 600 - this.r);
+                } else if (zone == 3) {
+                    this.x = sketch.random(600 + this.r, 800 - this.r);
+                } else {
+                    this.x = sketch.random(800 + this.r, 1000 - this.r);
+                }
+
+                this.y = sketch.random(0 + this.r, sketch.height - this.r);
+
+            }
             this.name = name;
             this.selected = false;
             this.initial = initial;
@@ -23,20 +46,25 @@ let three = function(sketch) {
                 sketch.fill(0);
             }
 
-            if (this.name == "error") {
-                sketch.textSize(24);
-            } else {
-                sketch.textSize(30);
-            }
             sketch.strokeWeight(1.5);
             sketch.textAlign(sketch.CENTER);
-            sketch.text(this.name, this.x, this.y+10)
+            if (this.name == "") {
+                sketch.textSize(27);
+                sketch.text("error", this.x, this.y+10)
+            } else {
+                if (this.r > 40) {
+                    sketch.textSize(20);
+                } else {
+                    sketch.textSize(30);
+                }
+                sketch.text(this.name, this.x, this.y+10)
+            }
     
             sketch.noFill();
             sketch.strokeWeight(3);
             sketch.ellipse(this.x, this.y, this.r*2);
             if (this.final) {
-                sketch.ellipse(this.x, this.y, this.r*2-15);
+                sketch.ellipse(this.x, this.y, this.r*2-12);
             } else if (this.initial) {
                 sketch.strokeWeight(2);
                 sketch.line(this.x-this.r, this.y, this.x-this.r - 20, this.y + 20);
@@ -352,7 +380,7 @@ let three = function(sketch) {
             this.ang = ang;
             this.selected = false;
     
-            this.r = 24;
+            this.r = this.n.r*0.8;
             this.c = {
                 x: sketch.cos(ang)*this.r*1.75 + node.x,
                 y: sketch.sin(ang)*this.r*1.75 + node.y
@@ -542,15 +570,13 @@ let three = function(sketch) {
 
     let convertion = function(min) {
         for (state of min.states) {
-            let n = new Node("A", true)
-
             nodes.push(new Node(state === '' ? "" : state, min.initial === state, min.final.includes(state), state === ''));
         }
 
         let transitions = [];
         let loops = [];
-        let tempTrans = [...min.listTransitions()]
-        console.log(tempTrans)
+        let tempTrans = [...min.transitions]
+        // console.log(tempTrans)
         for (let i = 0; i < tempTrans.length; i++) {
             if (tempTrans[i]) {
                 let letter = [tempTrans[i].letter];
@@ -558,12 +584,12 @@ let three = function(sketch) {
 
             for (let j = i+1; j < tempTrans.length; j++) {
                 if (tempTrans[j] && tempTrans[j].initial === tempTrans[i].initial && tempTrans[j].final === tempTrans[i].final){
-                    console.log(tempTrans[i], tempTrans[j]);
+                    // console.log(tempTrans[i], tempTrans[j]);
                     if (!letter.includes(tempTrans[j].letter)){
                         letter.push(tempTrans[j].letter)
                     }
                     tempTrans[j] = null;
-                    console.log(letter)
+                    // console.log(letter)
 
                     
                 }
@@ -619,12 +645,12 @@ let three = function(sketch) {
 
 
     sketch.setup = function() {
-        sketch.createCanvas(800, 500);
+        sketch.createCanvas(1000, 700);
 
         let a = convertion(min);
         nodes = a.n;
         transitions = a.t;
-        console.log(transitions);
+        // console.log(transitions);
         loops = a.l;
 
         // nodes.push(new Node("A", true));

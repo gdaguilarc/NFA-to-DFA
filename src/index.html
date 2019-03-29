@@ -32,29 +32,57 @@
 
     <script src="background.js"></script>
     <script>
-      const afn = new AFN();
-      afn.addLetter('c');
-      afn.addLetter('b');
-      afn.addLetter('a');
-      afn.addState('q0');
-      afn.addState('q1');
-      afn.addState('q2');
-      afn.addInitial('q0');
-      afn.addFinal('q1');
-      afn.addTransition('q0', 'q0', 'a');
-      afn.addTransition('q0', 'q1', 'a');
-      afn.addTransition('q0', 'q2', 'a');
-      afn.addTransition('q1', 'q1', 'b');
-      afn.addTransition('q2', 'q2', 'c');
-      afn.addTransition('q2', 'q1');
+      function iterationCopy(src) {
+        let target = {};
+        for (let prop in src) {
+          if (src.hasOwnProperty(prop)) {
+            target[prop] = src[prop];
+          }
+        }
+        return target;
+      }
 
+      const afn_complete = new AFN();
+      //afn_complete.addLetter('c');
+      afn_complete.addLetter('a');
+      afn_complete.addLetter('b');
+      afn_complete.addState('q0');
+      afn_complete.addState('q1');
+      afn_complete.addState('q2');
+      afn_complete.addInitial('q0');
+      afn_complete.addFinal('q2');
+      afn_complete.addTransition('q0', 'q1', 'a');
+      afn_complete.addTransition('q0', 'q2', 'b');
+      afn_complete.addTransition('q1', 'q1', 'a');
+      afn_complete.addTransition('q1', 'q0', 'a');
+      afn_complete.addTransition('q1', 'q0', 'b');
+      afn_complete.addTransition('q2', 'q2', 'b');
+      afn_complete.addTransition('q2', 'q1', 'b');
+
+      const afn = {
+        initial: afn_complete.initial,
+        final: afn_complete.final,
+        states: afn_complete.states,
+        transitions: afn_complete.listTransitions()
+      };
       const NFA = new p5(one, 'NFA');
 
-      let dfa = Transformation(afn);
-      console.log(dfa.states);
+      const dfa_complete = Transformation(afn_complete);
+      const dfa = {
+        initial: dfa_complete.initial,
+        final: dfa_complete.final,
+        states: dfa_complete.states,
+        transitions: dfa_complete.listTransitions()
+      };
       const DFA = new p5(two, 'DFA');
 
-      let min = reduceAFN(dfa);
+      const min_complete = reduceAFN(dfa_complete);
+      const min = {
+        initial: min_complete.initial,
+        final: min_complete.final,
+        states: min_complete.states,
+        transitions: min_complete.listTransitions()
+      };
       const MIN = new p5(three, 'DFA-min');
     </script>
   </body>
