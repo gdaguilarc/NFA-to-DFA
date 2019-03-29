@@ -154,12 +154,15 @@ class Automata {
       return a > b;
     });
   }
-
-  // Transforms a object into a String and compares it
+  /**
+   * Checks if the transition is in the transitions hashmap
+   * @param  {[type]} obj   [description]
+   * @param  {[type]} state [description]
+   * @return {[type]}       [description]
+   */
   existTransition(obj, state) {
     return this.transitions[state].some(elem => {
       return JSON.stringify(obj) === JSON.stringify(elem);
     });
   }
 }
-

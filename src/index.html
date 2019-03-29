@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>
@@ -22,7 +25,6 @@
   <body>
     <canvas id="canvas-bg"></canvas>
     <div class="wrapper">
-      
       <div id="NFA"></div>
       <div id="DFA"></div>
       <div id="DFA-min"></div>
@@ -46,7 +48,6 @@
       afn.addTransition('q2', 'q2', 'c');
       afn.addTransition('q2', 'q1');
 
-
       const NFA = new p5(one, 'NFA');
 
       let dfa = Transformation(afn);
@@ -55,11 +56,6 @@
 
       let min = reduceAFN(dfa);
       const MIN = new p5(three, 'DFA-min');
-
-
-
-
-      
     </script>
   </body>
 </html>

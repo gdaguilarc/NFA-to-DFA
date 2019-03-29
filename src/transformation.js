@@ -8,7 +8,6 @@
  * @since       1.0.0
  */
 
-
 /**
  * This function returns an array of transitions from a array of states
  * @param  {String []} array    Array of states of a FA
