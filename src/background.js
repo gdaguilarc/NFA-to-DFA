@@ -1,11 +1,20 @@
 (function() {
-
-  var canvas, ctx, circ, nodes, mouse, SENSITIVITY, SIBLINGS_LIMIT, DENSITY, NODES_QTY, ANCHOR_LENGTH, MOUSE_RADIUS;
+  var canvas,
+    ctx,
+    circ,
+    nodes,
+    mouse,
+    SENSITIVITY,
+    SIBLINGS_LIMIT,
+    DENSITY,
+    NODES_QTY,
+    ANCHOR_LENGTH,
+    MOUSE_RADIUS;
 
   // how close next node must be to activate connection (in px)
   // shorter distance == better connection (line width)
   SENSITIVITY = 100;
-  // note that siblings limit is not 'accurate' as the node can actually have more connections than this value that's because the node accepts sibling nodes with no regard to their current connections this is acceptable because potential fix would not result in significant visual difference 
+  // note that siblings limit is not 'accurate' as the node can actually have more connections than this value that's because the node accepts sibling nodes with no regard to their current connections this is acceptable because potential fix would not result in significant visual difference
   // more siblings == bigger node
   SIBLINGS_LIMIT = 500;
   // default node margin
@@ -13,7 +22,7 @@
   // total number of nodes used (incremented after creation)
   NODES_QTY = 0;
   // avoid nodes spreading
-  ANCHOR_LENGTH = 100;
+  ANCHOR_LENGTH = 300;
   // highlight radius
   MOUSE_RADIUS = 500;
 
@@ -45,16 +54,16 @@
   }
 
   Node.prototype.drawNode = function() {
-    var color = "rgba(0, 0, 255, " + this.brightness + ")";
+    var color = 'rgba(255, 255, 255, ' + this.brightness + ')';
     ctx.beginPath();
-    ctx.arc(this.x, this.y, 2 * this.radius + 2 * this.siblings.length / SIBLINGS_LIMIT, 0, circ);
+    ctx.arc(this.x, this.y, 2 * this.radius + (2 * this.siblings.length) / SIBLINGS_LIMIT, 0, circ);
     ctx.fillStyle = color;
     ctx.fill();
   };
 
   Node.prototype.drawConnections = function() {
     for (var i = 0; i < this.siblings.length; i++) {
-      var color = "rgba(0, 0, 255, " + this.brightness + ")";
+      var color = 'rgba(255, 255, 255, ' + this.brightness + ')';
       ctx.beginPath();
       ctx.moveTo(this.x, this.y);
       ctx.lineTo(this.siblings[i].x, this.siblings[i].y);
@@ -83,8 +92,8 @@
         this.vy = Math.random() * 4 - 2;
       }
     }
-    this.x += this.vx * this.energy / 100;
-    this.y += this.vy * this.energy / 100;
+    this.x += (this.vx * this.energy) / 100;
+    this.y += (this.vy * this.energy) / 100;
   };
 
   function initNodes() {
@@ -99,7 +108,7 @@
   }
 
   function calcDistance(node1, node2) {
-    return Math.sqrt(Math.pow(node1.x - node2.x, 2) + (Math.pow(node1.y - node2.y, 2)));
+    return Math.sqrt(Math.pow(node1.x - node2.x, 2) + Math.pow(node1.y - node2.y, 2));
   }
 
   function findSiblings() {
@@ -143,10 +152,13 @@
     var i, node, distance;
     for (i = 0; i < NODES_QTY; i++) {
       node = nodes[i];
-      distance = calcDistance({
-        x: mouse.x,
-        y: mouse.y
-      }, node);
+      distance = calcDistance(
+        {
+          x: mouse.x,
+          y: mouse.y
+        },
+        node
+      );
       if (distance < MOUSE_RADIUS) {
         node.brightness = 1 - distance / MOUSE_RADIUS;
       } else {
@@ -182,5 +194,4 @@
   initHandlers();
   initNodes();
   redrawScene();
-
 })();
